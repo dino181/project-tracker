@@ -369,12 +369,13 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
+export interface ApiProjectPostProjectPost extends Struct.CollectionTypeSchema {
+  collectionName: 'project_posts';
   info: {
-    displayName: 'Category';
-    pluralName: 'categories';
-    singularName: 'category';
+    description: '';
+    displayName: 'Project Post';
+    pluralName: 'project-posts';
+    singularName: 'project-post';
   };
   options: {
     draftAndPublish: true;
@@ -383,50 +384,69 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    DateRange: Schema.Attribute.Component<'date-range-cat.date-range', false> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    Goal: Schema.Attribute.Text & Schema.Attribute.Required;
+    Link: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::category.category'
+      'api::project-post.project-post'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    restaurants: Schema.Attribute.Relation<
+    Rating: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      >;
+    Screenshots: Schema.Attribute.Media<'images' | 'files', true>;
+    Stack: Schema.Attribute.Relation<
       'manyToMany',
-      'api::restaurant.restaurant'
+      'api::stack-item.stack-item'
     >;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Videos: Schema.Attribute.Media<'files' | 'videos', true>;
   };
 }
 
-export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
-  collectionName: 'restaurants';
+export interface ApiStackItemStackItem extends Struct.CollectionTypeSchema {
+  collectionName: 'stack_items';
   info: {
-    displayName: 'Restaurant';
-    pluralName: 'restaurants';
-    singularName: 'restaurant';
+    displayName: 'StackItem';
+    pluralName: 'stack-items';
+    singularName: 'stack-item';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    categories: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::category.category'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.Blocks;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::restaurant.restaurant'
+      'api::stack-item.stack-item'
     > &
       Schema.Attribute.Private;
     Name: Schema.Attribute.String;
+    Project: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::project-post.project-post'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -943,8 +963,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::category.category': ApiCategoryCategory;
-      'api::restaurant.restaurant': ApiRestaurantRestaurant;
+      'api::project-post.project-post': ApiProjectPostProjectPost;
+      'api::stack-item.stack-item': ApiStackItemStackItem;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

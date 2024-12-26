@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_posts",
+  "info": {
+    "singularName": "project-post",
+    "pluralName": "project-posts",
+    "displayName": "Project Post",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "DateRange": {
+      "type": "component",
+      "repeatable": false,
+      "component": "date-range-cat.date-range",
+      "required": true
+    },
+    "Goal": {
+      "type": "text",
+      "required": true
+    },
+    "Stack": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stack-item.stack-item",
+      "inversedBy": "Project"
+    },
+    "Description": {
+      "type": "richtext",
+      "required": true
+    },
+    "Rating": {
+      "max": 10,
+      "min": 1,
+      "required": true,
+      "type": "integer"
+    },
+    "Screenshots": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": false
+    },
+    "Videos": {
+      "allowedTypes": [
+        "files",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": false
+    },
+    "Link": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}

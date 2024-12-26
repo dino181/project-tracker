@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stack_items",
+  "info": {
+    "singularName": "stack-item",
+    "pluralName": "stack-items",
+    "displayName": "StackItem"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Project": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project-post.project-post",
+      "mappedBy": "Stack"
+    }
+  }
+}
