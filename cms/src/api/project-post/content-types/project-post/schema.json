@@ -39,27 +39,27 @@
     },
     "Rating": {
       "max": 10,
-      "min": 1,
+      "min": 0,
       "required": true,
       "type": "integer"
     },
     "Screenshots": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": false
+      ]
     },
     "Videos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "files",
         "videos"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": false
+      ]
     },
     "Link": {
       "type": "string",

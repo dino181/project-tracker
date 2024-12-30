@@ -1,6 +1,8 @@
 import { useParams } from "react-router"
 import useProjects from "./useProjects";
 import { useEffect, useState } from "react";
+import { Star, StarHalf, StarOutline } from "@mui/icons-material";
+import { monthNames } from "../constants";
 
 export default function Project() {
   let params = useParams();
@@ -18,7 +20,7 @@ export default function Project() {
 
     !show ?
       <>
-        < div className="flex flex-col justify-center gap-3 p-5 bg-white w-3/5 h-full" >
+        <div className="flex flex-col justify-center gap-3 p-5 bg-white w-3/5 h-full" >
           <p className="self-center text-5xl "> Project not found </p>
         </div >
       </>
@@ -27,16 +29,23 @@ export default function Project() {
         <div className="flex flex-col gap-3 p-5 bg-white w-3/5 h-full">
 
           <div>
-            <h1 className="text-6xl"> {projects.currentProject?.title} </h1>
-            <p className="italic"> Nov 2024 - Nov 2025 </p>
-            <p> * * * * * </p>
+            <h1 className="text-6xl"> {projects.currentProject.title} </h1>
+            <p className="italic">
+              {monthNames[projects.currentProject.startDate.getMonth()]} {projects.currentProject.startDate.getFullYear()}
+              {(projects.currentProject.startDate.getMonth() != projects.currentProject.endDate.getMonth() || projects.currentProject.startDate.getFullYear() != projects.currentProject.endDate.getFullYear()) && ` - ${monthNames[projects.currentProject.endDate.getMonth()]} ${projects.currentProject.endDate.getFullYear()}`}
+            </p>
+            <div className="w-full h-fit">
+              {Array.from({ length: projects.currentProject.rating / 2 }).map((_, index) => <Star key={`star-${index}`} />)}
+              {Array.from({ length: projects.currentProject.rating % 2 }).map((_, index) => <StarHalf key={`starHalf-${index}`} />)}
+              {Array.from({ length: (10 - projects.currentProject.rating) / 2 }).map((_, index) => <StarOutline key={`starOutline-${index}`} />)}
+            </div>
           </div>
 
           <hr />
 
           <div>
             <h2 className="text-3xl"> Project Goal </h2>
-            <p> {projects.currentProject?.goal} </p>
+            <p> {projects.currentProject.goal} </p>
           </div>
 
           <div>

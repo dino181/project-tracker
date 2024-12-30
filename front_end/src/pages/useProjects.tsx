@@ -43,8 +43,8 @@ type Project = {
   goal: string;
   stack: string[];
   description: string;
-  start_date: string;
-  end_date: string;
+  startDate: Date;
+  endDate: Date;
   rating: number;
   link: string;
 }
@@ -52,7 +52,19 @@ type Project = {
 
 export default function useProjects() {
   const [projects, setProjects] = useState<ProjectSummary[]>([]);
-  const [currentProject, setCurrentProject] = useState<Project>();
+  const [currentProject, setCurrentProject] = useState<Project>(
+    {
+      id: "",
+      title: "",
+      goal: "",
+      stack: [],
+      description: "",
+      startDate: new Date("2024"),
+      endDate: new Date("2024"),
+      rating: 0,
+      link: "",
+    }
+  );
   const [loading, setLoading] = useState<boolean>(true);
 
   function getProjects() {
@@ -81,8 +93,8 @@ export default function useProjects() {
             goal: data.Goal,
             stack: data.Stack.map((stackItem) => stackItem.Name),
             description: data.Description,
-            start_date: data.DateRange.StartDate,
-            end_date: data.DateRange.EndDate,
+            startDate: new Date(data.DateRange.StartDate),
+            endDate: new Date(data.DateRange.EndDate),
             rating: data.Rating,
             link: data.Link,
           })

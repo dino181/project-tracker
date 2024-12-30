@@ -10,7 +10,7 @@ export default function ProjectList() {
         <ul>
           {projects.projects.map((project, index) =>
             <li key={`project ${index}`}>
-              <a href={`projects/${project.urlRule}`}> {project.title} </a>
+              <a href={`${project.urlRule}`}> {project.title} </a>
             </li>
           )}
         </ul>
