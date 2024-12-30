@@ -26,9 +26,9 @@ export default function Project() {
       </>
       :
       <>
-        <div className="flex flex-col gap-3 p-5 bg-white w-3/5 h-full">
+        <div className="flex flex-col gap-3 p-5 bg-white w-4/5 h-full">
 
-          <div>
+          <div className="flex flex-col w-3/4 bg-black/10 mx-0">
             <h1 className="text-6xl"> {projects.currentProject.title} </h1>
             <p className="italic">
               {monthNames[projects.currentProject.startDate.getMonth()]} {projects.currentProject.startDate.getFullYear()}
@@ -43,12 +43,12 @@ export default function Project() {
 
           <hr />
 
-          <div>
+          <div className="flex flex-col w-3/5 bg-black/10 px-5 self-end">
             <h2 className="text-3xl"> Project Goal </h2>
             <p> {projects.currentProject.goal} </p>
           </div>
 
-          <div>
+          <div className="flex flex-col w-1/2 bg-black/10 mx-10">
             <h2 className="text-3xl"> Tech Stack </h2>
             <ul>
               {projects.currentProject?.stack.map((stackItem, index) => <li key={`stackitem ${index}`} > {stackItem} </li>)}
